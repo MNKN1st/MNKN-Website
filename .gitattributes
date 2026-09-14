@@ -1,0 +1,22 @@
+# Normalize text files to LF across platforms.
+* text=auto eol=lf
+
+# Keep media as binary.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.mp3 binary
+*.wav binary
+*.m4a binary
+*.ogg binary
+*.mp4 binary
+*.webm binary
+*.pdf binary
