@@ -67,10 +67,12 @@ ignored by Git. Only the optimised copies should be published.
 
 Project labels and playback paths are in `showreel.html`. Titles currently follow
 the supplied filenames and the collection is in alphabetical order.
-The Story video is still pending and is configured separately via `media.story`
-in `assets/js/main.js`.
+The Story page uses `assets/video/web/story-background.mp4` behind its text,
+with `assets/images/story-background.jpg` as a still fallback. The original
+`assets/video/story-background.mp4` remains local and is ignored by Git.
+Playback is silent and looping, with a pause control and reduced-motion support.
 
-Outstanding before publication: Story video, final review of project labels and
+Outstanding before publication: final review of project labels and
 credits, and GitHub Pages configuration.
 
 ## Homepage brand band

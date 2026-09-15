@@ -89,3 +89,45 @@ if (projectPlayer) {
     document.body.classList.remove("video-open");
   });
 }
+
+const storyBackground = document.querySelector("#story-background");
+if (storyBackground) {
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const toggle = document.querySelector("#story-motion-toggle");
+  let userPaused = false;
+  let failed = false;
+  let inView = true;
+  storyBackground.muted = true;
+  function updateButton() {
+    toggle.hidden = motion.matches || failed;
+    toggle.textContent = userPaused ? "Play background" : "Pause background";
+  }
+  function fallback() {
+    failed = true;
+    storyBackground.pause();
+    storyBackground.classList.remove("is-playing");
+    updateButton();
+  }
+  async function syncBackground() {
+    updateButton();
+    if (motion.matches || failed) {
+      storyBackground.pause();
+      storyBackground.classList.remove("is-playing");
+      return;
+    }
+    if (userPaused || document.hidden || !inView) { storyBackground.pause(); return; }
+    if (!storyBackground.getAttribute("src")) storyBackground.src = storyBackground.dataset.src;
+    try { await storyBackground.play(); } catch (error) {
+      if (error.name !== "AbortError") fallback();
+    }
+  }
+  storyBackground.addEventListener("playing", () => {
+    if (!motion.matches && !failed) storyBackground.classList.add("is-playing");
+  });
+  storyBackground.addEventListener("error", fallback);
+  toggle.addEventListener("click", () => { userPaused = !userPaused; syncBackground(); });
+  motion.addEventListener("change", syncBackground);
+  document.addEventListener("visibilitychange", syncBackground);
+  new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; syncBackground(); }).observe(document.querySelector(".story-page"));
+  syncBackground();
+}

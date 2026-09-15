@@ -65,3 +65,24 @@ body.video-open { overflow: hidden; }
 .hero-socials svg { width: 26px; height: 26px; }
 .hero-socials a:hover { opacity: .65; color: #111; }
 .hero-socials a:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+
+/* Sticky media stays behind the story and stops before the footer. */
+.story-page { padding-top: 0; position: relative; isolation: isolate; display: flow-root; }
+.story-backdrop { position: sticky; top: 0; height: 100svh; margin-bottom: -100svh; z-index: -1; background: #111 url('../images/story-background.jpg') center / cover no-repeat; pointer-events: none; }
+.story-backdrop::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.74); }
+.story-backdrop video { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0; }
+.story-backdrop video.is-playing { opacity: 1; }
+.story-page .story-copy { position: relative; border-top: 0; padding-top: 25px; min-height: 100svh; }
+.story-page .story-copy p { color: #f4f3ed; }
+.story-motion-control { display: flex; justify-content: flex-end; padding: 24px 4% 0; }
+#story-motion-toggle { min-height: 44px; padding: 8px 12px; border: 1px solid #888; background: #111b; color: #f4f3ed; font-size: 14px; cursor: pointer; }
+#story-motion-toggle:hover { color: var(--accent); }
+body:has(.story-page) header, body:has(.story-page) footer { position: relative; background: var(--bg); }
+@media (prefers-reduced-motion: reduce) { .story-backdrop video { display: none; } }
+
+/* Official supplied MNKN artwork, preserving its original proportions. */
+.logo { display: inline-flex; align-items: center; flex-shrink: 0; line-height: 1; }
+.logo img { display: block; width: 108px; height: auto; filter: brightness(0) invert(1); }
+.wordmark { font-size: inherit; line-height: 1; letter-spacing: normal; transform: none; margin: 50px 0 30px; }
+.wordmark img { display: block; width: 100%; height: auto; }
+@media(max-width:760px) { .logo img { width: 92px; } .wordmark { margin: 40px 0 25px; } }
